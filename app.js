@@ -7,7 +7,9 @@ const {
   allowInsecurePrototypeAccess,
 } = require("@handlebars/allow-prototype-access");
 const app = express();
+
 const homeRouter = require("./routes/home.route");
+const authRouter = require("./routes/auth.route");
 dotenv.config();
 
 const port = process.env.PORT_NO;
@@ -31,8 +33,8 @@ app.engine(
 
 app.set("view engine", "hbs");
 app.use(express.static(path.join(__dirname, "public")));
-
 app.use("/", homeRouter);
+app.use("/auth", authRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
