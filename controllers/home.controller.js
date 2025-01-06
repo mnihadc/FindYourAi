@@ -1,6 +1,6 @@
 const getHomePage = (req, res, next) => {
   try {
-    res.render("Home", { title: "Home Page" });
+    res.render("users/Home", { title: "FindYourAi" });
   } catch (error) {
     next(error);
   }
