@@ -16,7 +16,7 @@
 
     body {
       font-family: Arial, sans-serif;
-      background-color: #f7f7f7;
+
     }
 
     /* Fixed header style */
@@ -26,6 +26,7 @@
       left: 0;
       right: 0;
       z-index: 100;
+      height: 5rem;
       background-color: #111122;
       border-bottom: 2px solid #242447;
       padding: 10px 20px;
@@ -97,24 +98,36 @@
       }
     }
 
-    @media (max-width: 480px) {
-      .logo-container h2 {
-        font-size: 1rem;
-      }
+    /* Dropdown Menu */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
 
-      header {
-        padding: 10px 15px;
-      }
+    .dropdown-menu {
+      position: absolute;
+      right: 0;
+      background-color: #242447;
+      min-width: 150px;
+      display: none;
+      flex-direction: column;
+      border-radius: 10px;
+      overflow: hidden;
+    }
 
-      .header-right {
-        flex-direction: column;
-        gap: 10px;
-      }
+    .dropdown:hover .dropdown-menu {
+      display: flex;
+    }
 
-      .header-right a,
-      .header-right button {
-        font-size: 0.8rem;
-      }
+    .dropdown-menu a {
+      padding: 10px;
+      text-decoration: none;
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #333;
     }
   </style>
 </head>
@@ -123,23 +136,31 @@
   <header>
     <div class="logo-container">
       <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+
         <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z"
           fill="currentColor"></path>
       </svg>
-      <h2>FindYourAI</h2>
+      <a href="/">
+        <h2>FindYourAI</h2>
+      </a>
     </div>
-    </div>
-    <div class="flex flex-1 justify-end gap-8">
-      <div class="flex items-center gap-9">
-        <a class="text-white text-sm font-medium leading-normal" href="#">About</a>
-        <a class="text-white text-sm font-medium leading-normal" href="#">Login</a>
+    <nav class="header-right">
+      <a class="text-white text-sm font-medium leading-normal" href="#" aria-label="About Page">About</a>
+      <a class="text-white text-sm font-medium leading-normal" href="/auth/login" aria-label="Login Page">Login</a>
+      <!-- Help Button with Dropdown -->
+      <div class="dropdown">
+        <button class="flex items-center justify-center rounded-xl h-10 px-4 bg-[#242447] text-white text-sm font-bold">
+          Help
+        </button>
+        <ul class="dropdown-menu hidden absolute bg-[#242447] text-white text-sm shadow-lg rounded-xl mt-2">
+          <li><a href="#" class="block px-4 py-2 hover:bg-[#333]">FAQs</a></li>
+          <li><a href="#" class="block px-4 py-2 hover:bg-[#333]">Contact Support</a></li>
+          <li><a href="#" class="block px-4 py-2 hover:bg-[#333]">Feedback</a></li>
+        </ul>
       </div>
-      <button
-        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#242447] text-white text-sm font-bold leading-normal tracking-[0.015em]">
-        <span class="truncate">Help</span>
-      </button>
-    </div>
+    </nav>
   </header>
+
   <!-- Dynamic page content -->
   {{{body}}}
 </body>
