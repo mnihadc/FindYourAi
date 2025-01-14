@@ -73,12 +73,11 @@ const SignUp = async (req, res, next) => {
 const Login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-
     // Validate input
     if (!email || !password) {
       return res.render("users/Login", {
         title: "Login Page",
-        isLoginPage: true,
+        getLoginpage: true,
         loginError: "Email and password are required.",
       });
     }
@@ -88,17 +87,17 @@ const Login = async (req, res, next) => {
     if (!user) {
       return res.render("users/Login", {
         title: "Login Page",
-        isLoginPage: true,
+        getLoginpage: true,
         loginError: "No account found with this email.",
       });
     }
 
-    // Validate password
     const isPasswordValid = await bcrypt.compare(password, user.password);
+
     if (!isPasswordValid) {
       return res.render("users/Login", {
         title: "Login Page",
-        isLoginPage: true,
+        getLoginpage: true,
         loginError: "Incorrect password. Please try again.",
       });
     }

@@ -34,14 +34,15 @@
             <div class="tab-content">
                 <!-- Login Form -->
                 <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
-                    <form>
+                    <form action="/auth/login" method="POST">
                         <div class="mb-3">
                             <label for="loginEmail" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="loginEmail" placeholder="Enter your email">
+                            <input type="email" name="email" class="form-control" id="loginEmail"
+                                placeholder="Enter your email">
                         </div>
                         <div class="mb-3">
                             <label for="loginPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="loginPassword"
+                            <input type="password" name="password" class="form-control" id="loginPassword"
                                 placeholder="Enter your password">
                         </div>
                         <div class="d-grid">
@@ -95,7 +96,14 @@
                     <div id="successAlert" class="alert alert-success">{{successMessage}}</div>
                     {{/if}}
                 </div>
-
+                <div class="mb-3 pt-2">
+                    {{#if loginError}}
+                    <div id="errorAlert" class="alert alert-danger">{{loginError}}</div>
+                    {{/if}}
+                    {{#if successMessage}}
+                    <div id="successAlert" class="alert alert-success">{{successMessage}}</div>
+                    {{/if}}
+                </div>
             </div>
         </div>
     </div>
