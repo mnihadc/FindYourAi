@@ -59,18 +59,20 @@
 
                 <!-- Sign Up Form -->
                 <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
-                    <form>
+                    <form action="/auth/signup" method="POST">
                         <div class="mb-3">
-                            <label for="signupName" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="signupName" placeholder="Enter your name">
+                            <label for="signupName" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="signupName" name="username"
+                                placeholder="Enter your name">
                         </div>
                         <div class="mb-3">
                             <label for="signupEmail" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="signupEmail" placeholder="Enter your email">
+                            <input type="email" class="form-control" id="signupEmail" name="email"
+                                placeholder="Enter your email">
                         </div>
                         <div class="mb-3">
                             <label for="signupPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="signupPassword"
+                            <input type="password" name="password" class="form-control" id="signupPassword"
                                 placeholder="Create a password">
                         </div>
                         <div class="d-grid">
@@ -85,10 +87,33 @@
                         </div>
                     </form>
                 </div>
+                <div class="mb-3 pt-2">
+                    {{#if signUpError}}
+                    <div id="errorAlert" class="alert alert-danger">{{signUpError}}</div>
+                    {{/if}}
+                    {{#if successMessage}}
+                    <div id="successAlert" class="alert alert-success">{{successMessage}}</div>
+                    {{/if}}
+                </div>
+
             </div>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Automatically hide alerts after 5 seconds
+        setTimeout(() => {
+            const errorAlert = document.getElementById('errorAlert');
+            const successAlert = document.getElementById('successAlert');
+            if (errorAlert) {
+                errorAlert.style.display = 'none';
+            }
+            if (successAlert) {
+                successAlert.style.display = 'none';
+            }
+        }, 5000); // 5000ms = 5 seconds
+    </script>
 </body>
 
 </html>

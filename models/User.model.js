@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema(
   {
@@ -6,12 +7,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Username is required."],
       minlength: [5, "Username must be at least 5 characters long."],
-    },
-    password: {
-      type: String,
-      required: [true, "Password is required."],
-      minlength: [8, "Password must be at least 8 characters long."],
-      select: false, // Exclude password from query results
     },
     email: {
       type: String,
@@ -24,11 +19,18 @@ const userSchema = new mongoose.Schema(
         "Please enter a valid email address.",
       ],
     },
+    password: {
+      type: String,
+      required: [true, "Password is required."],
+      minlength: [8, "Password must be at least 8 characters long."],
+      select: false, // Exclude password from query results
+    },
+
     profileImageUrl: {
       type: String,
       default:
-        "https://via.placeholder.com/150/000000/FFFFFF/?text=User+Profile",
-    }, //https://www.shutterstock.com/image-vector/user-profile-icon-vector-avatar-600nw-2247726673.jpg
+        "https://www.shutterstock.com/image-vector/user-profile-icon-vector-avatar-600nw-2247726673.jpg",
+    },
   },
   {
     timestamps: true, // Automatically adds `createdAt` and `updatedAt`

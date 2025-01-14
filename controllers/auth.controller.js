@@ -1,4 +1,7 @@
 const bcrypt = require("bcryptjs");
+const User = require("../models/User.model");
+
+// Render Login Page
 const getLoginPage = (req, res, next) => {
   try {
     res.render("users/Login", {
@@ -10,6 +13,7 @@ const getLoginPage = (req, res, next) => {
   }
 };
 
+// Handle User SignUp
 const SignUp = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
@@ -18,7 +22,7 @@ const SignUp = async (req, res, next) => {
     if (!username || !email || !password) {
       return res.status(400).render("users/Login", {
         title: "Login Page",
-        isLoginPage: true,
+        getLoginpage: true,
         signUpError: "All fields are required.",
       });
     }
@@ -28,7 +32,7 @@ const SignUp = async (req, res, next) => {
     if (userExists) {
       return res.status(400).render("users/Login", {
         title: "Login Page",
-        isLoginPage: true,
+        getLoginpage: true,
         signUpError: "User with this email already exists.",
       });
     }
@@ -45,7 +49,9 @@ const SignUp = async (req, res, next) => {
     await newUser.save();
 
     // Redirect to login page with a success message
-    res.redirect("/auth/login");
+    return res.redirect(
+      "/auth/login?successMessage=Account created successfully!"
+    );
   } catch (error) {
     console.error("SignUp Error:", error);
 
@@ -54,7 +60,7 @@ const SignUp = async (req, res, next) => {
       const messages = Object.values(error.errors).map((err) => err.message);
       return res.status(400).render("users/Login", {
         title: "Login Page",
-        isLoginPage: true,
+        getLoginpage: true,
         signUpError: messages.join(", "),
       });
     }
