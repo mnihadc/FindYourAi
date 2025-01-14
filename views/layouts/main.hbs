@@ -149,11 +149,12 @@
     </div>
     <nav class="header-right">
       <a class="text-white text-sm font-medium leading-normal" href="#" aria-label="About Page">About</a>
-      <a class="text-white text-sm font-medium leading-normal" href="/auth/login" aria-label="Login Page">Login</a>
       {{#if user}}
       <a class="nav-link" href="/profile/user">
         <img src="/images/user.svg" alt="User" class="icon-small">
       </a>
+      {{else}}
+      <a class="text-white text-sm font-medium leading-normal" href="/auth/login" aria-label="Login Page">Login</a>
       {{/if}}
       <!-- Help Button with Dropdown -->
       <div class="dropdown">
