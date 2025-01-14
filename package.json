@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.5",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.7",
     "exphbs": "^1.2.0",
     "express": "^4.21.2",
