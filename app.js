@@ -5,6 +5,7 @@ const handlebars = require("handlebars");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const bodyParser = require("body-parser");
 const {
   allowInsecurePrototypeAccess,
 } = require("@handlebars/allow-prototype-access");
@@ -12,6 +13,7 @@ const app = express();
 
 const homeRouter = require("./routes/home.route");
 const authRouter = require("./routes/auth.route");
+const authenticateUser = require("./middlewares/verifyToken");
 dotenv.config();
 
 const port = process.env.PORT_NO;
@@ -27,6 +29,7 @@ mongoose
     console.error("Error connecting to MongoDB:", err);
   });
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 // Global error handler
@@ -34,6 +37,7 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something went wrong!");
 });
+app.use(authenticateUser);
 app.engine(
   "hbs",
   exphbs.engine({
