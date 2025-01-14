@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/User.model");
-
+const jwt = require("jsonwebtoken");
 // Render Login Page
 const getLoginPage = (req, res, next) => {
   try {
@@ -70,4 +70,61 @@ const SignUp = async (req, res, next) => {
   }
 };
 
-module.exports = { getLoginPage, SignUp };
+const Login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    // Validate input
+    if (!email || !password) {
+      return res.render("users/Login", {
+        title: "Login Page",
+        isLoginPage: true,
+        loginError: "Email and password are required.",
+      });
+    }
+
+    // Find user and include password field
+    const user = await User.findOne({ email }).select("+password");
+    if (!user) {
+      return res.render("users/Login", {
+        title: "Login Page",
+        isLoginPage: true,
+        loginError: "No account found with this email.",
+      });
+    }
+
+    // Validate password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.render("users/Login", {
+        title: "Login Page",
+        isLoginPage: true,
+        loginError: "Incorrect password. Please try again.",
+      });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { userId: user._id, email: user.email },
+      process.env.JWT_SECRET || "defaultSecret",
+      {
+        expiresIn: "1h",
+      }
+    );
+
+    // Set the cookie
+    res.cookie("authToken", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 3600000, // 1 hour
+    });
+
+    res.redirect("/");
+  } catch (error) {
+    console.error("Login Error:", error);
+    next(error);
+  }
+};
+
+module.exports = { getLoginPage, SignUp, Login };
