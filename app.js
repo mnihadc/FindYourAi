@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const exphbs = require("express-handlebars");
 const handlebars = require("handlebars");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 const path = require("path");
 const {
   allowInsecurePrototypeAccess,
@@ -27,6 +28,7 @@ mongoose
   });
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 // Global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);

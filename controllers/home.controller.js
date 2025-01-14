@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const getHomePage = (req, res, next) => {
   try {
     res.render("users/Home", { title: "FindYourAi" });
