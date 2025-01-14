@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const exphbs = require("express-handlebars");
 const handlebars = require("handlebars");
+const mongoose = require("mongoose");
 const path = require("path");
 const {
   allowInsecurePrototypeAccess,
@@ -13,7 +14,17 @@ const authRouter = require("./routes/auth.route");
 dotenv.config();
 
 const port = process.env.PORT_NO;
-
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("MongoDB connected successfully!");
+  })
+  .catch((err) => {
+    console.error("Error connecting to MongoDB:", err);
+  });
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Global error handler
