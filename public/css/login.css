@@ -86,18 +86,6 @@ body::before {
   border-radius: 30px;
 }
 
-.btn-custom {
-  background-color: #6a11cb;
-  color: #fff;
-  border-radius: 30px;
-  padding: 0.8rem 1.5rem;
-  font-weight: bold;
-}
-
-.btn-custom:hover {
-  background-color: #2575fc;
-}
-
 @media (max-width: 768px) {
   .auth-card {
     flex-direction: column;
