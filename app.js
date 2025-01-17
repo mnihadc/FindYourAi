@@ -6,6 +6,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const passport = require("passport");
+const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const {
   allowInsecurePrototypeAccess,

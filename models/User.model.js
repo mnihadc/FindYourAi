@@ -25,6 +25,9 @@ const userSchema = new mongoose.Schema(
       minlength: [8, "Password must be at least 8 characters long."],
       select: false, // Exclude password from query results
     },
+    googleId: {
+      type: String, // Add this field for storing Google ID
+    },
 
     profileImageUrl: {
       type: String,
