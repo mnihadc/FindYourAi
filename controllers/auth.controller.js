@@ -126,4 +126,8 @@ const Login = async (req, res, next) => {
   }
 };
 
-module.exports = { getLoginPage, SignUp, Login };
+module.exports = {
+  getLoginPage,
+  SignUp,
+  Login,
+};
